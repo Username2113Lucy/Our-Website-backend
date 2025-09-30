@@ -132,7 +132,7 @@ router.get("/partial-data", async (req, res) => {
     res.status(200).json({ success: true, data: result });
   } catch (err) {
     console.error("❌ Error in /partial-data:", err.message);
-    res.status(500).json({ success: false, message: err });
+    res.status(500).json({ success: false, message: "Server error" });
   }
 });
 

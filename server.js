@@ -27,9 +27,13 @@ app.use(express.json());
 console.log(process.env.MONGODB_URI,"urii");
 
 // ✅ UPDATED MongoDB connection (using environment variable)
-mongoose.connect(process.env.MONGODB_URI )
-  .then(() => console.log("MongoDB connected"))
-  .catch(err => console.error(err));
+mongoose.connect(process.env.MONGODB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  serverSelectionTimeoutMS: 10000,
+})
+.then(() => console.log("✅ MongoDB connected"))
+.catch(err => console.error("❌ MongoDB connection error:", err));
 
 // Use routers
 app.use("/InternEntries", InternEntriesRouter);
