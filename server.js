@@ -5,6 +5,8 @@ import InternEntriesRouter from "./routes/InternEntries.js";
 import RDProjectsRouter from "./routes/RDprojects.js"; // new router
 import courseRoutes from "./routes/CourseReg.js";
 import PartialRDRouter from "./routes/PartialRD.js";
+import dotenv from "dotenv";
+dotenv.config(); 
 
 const app = express();
 
@@ -22,9 +24,10 @@ app.use(cors({
 }));
 
 app.use(express.json());
+console.log(process.env.MONGODB_URI,"urii");
 
 // ✅ UPDATED MongoDB connection (using environment variable)
-mongoose.connect(process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/internshipDB")
+mongoose.connect(process.env.MONGODB_URI )
   .then(() => console.log("MongoDB connected"))
   .catch(err => console.error(err));
 
