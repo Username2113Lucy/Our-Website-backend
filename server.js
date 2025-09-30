@@ -1,0 +1,43 @@
+import express from "express";
+import mongoose from "mongoose";
+import cors from "cors";
+import InternEntriesRouter from "./routes/InternEntries.js";
+import RDProjectsRouter from "./routes/RDprojects.js"; // new router
+import courseRoutes from "./routes/CourseReg.js";
+import PartialRDRouter from "./routes/PartialRD.js";
+
+const app = express();
+
+// ✅ UPDATED CORS CONFIGURATION
+app.use(cors({
+  origin: [
+    process.env.FRONTEND_URL,
+    "http://localhost:5173",
+    "http://localhost:5174",
+    "http://localhost:3000",
+    "https://your-frontend.vercel.app"  // Your future frontend URL
+  ],
+  credentials: true
+}));
+
+app.use(express.json());
+
+// ✅ UPDATED MongoDB connection (using environment variable)
+mongoose.connect(process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/internshipDB")
+  .then(() => console.log("MongoDB connected"))
+  .catch(err => console.error(err));
+
+// Use routers
+app.use("/InternEntries", InternEntriesRouter);
+app.use("/RDprojects", RDProjectsRouter); // mount at /RD_projects
+app.use("/Courses", courseRoutes);
+app.use("/partialRD", PartialRDRouter); // Now /RDprojects/partial-save works
+
+// ✅ ADD health check route
+app.get("/", (req, res) => {
+  res.json({ message: "R&D Backend API is running!" });
+});
+
+// ✅ UPDATED Server port (using environment variable)
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

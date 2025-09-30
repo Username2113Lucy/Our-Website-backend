@@ -1,0 +1,12 @@
+# Environment variables
+.env
+.env.local
+
+# Dependencies
+node_modules/
+
+# Logs
+*.log
+
+# Uploads (if you want to ignore uploaded files)
+uploads/
