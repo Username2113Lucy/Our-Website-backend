@@ -24,7 +24,7 @@ app.use(cors({
 }));
 
 app.use(express.json());
-console.log(process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/internshipDB");
+console.log(process.env.MONGODB_URI,"urii" || "mongodb://127.0.0.1:27017/internshipDB");
 
 // ✅ UPDATED MongoDB connection (using environment variable)
 mongoose.connect(process.env.MONGODB_URI, {
