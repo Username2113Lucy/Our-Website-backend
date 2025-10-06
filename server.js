@@ -5,6 +5,9 @@ import InternEntriesRouter from "./routes/InternEntries.js";
 import RDProjectsRouter from "./routes/RDprojects.js"; // new router
 import courseRoutes from "./routes/CourseReg.js";
 import PartialRDRouter from "./routes/PartialRD.js";
+// Import the internship routes at the top with your other imports
+import InternshipRouter from "./routes/RegisterIntern.js";
+import PartialInternRouter from "./routes/PartialIntern.js";
 import dotenv from "dotenv";
 dotenv.config(); 
 
@@ -40,6 +43,9 @@ app.use("/InternEntries", InternEntriesRouter);
 app.use("/RDprojects", RDProjectsRouter); // mount at /RD_projects
 app.use("/Courses", courseRoutes);
 app.use("/partialRD", PartialRDRouter); // Now /RDprojects/partial-save works
+// ADD THESE NEW ROUTES FOR INTERNSHIP:
+app.use("/RegisterIntern", InternshipRouter); // Main internship database routes
+app.use("/PartialIntern", PartialInternRouter); // Partial internship database routes
 
 // ✅ ADD health check route
 app.get("/", (req, res) => {
