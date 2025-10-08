@@ -20,19 +20,16 @@ app.use(cors({
     'http://localhost:5173',
     'http://localhost:5174', 
     'http://localhost:3000',
-    process.env.FRONTEND_URL, // Keep this if you have it in env
-    process.env.ADMIN_URL,    // Keep this if you have it in env
-  ].filter(Boolean), // Removes any undefined values
+    process.env.FRONTEND_URL,
+    process.env.ADMIN_URL,
+  ].filter(Boolean),
   credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // ✅ ADD THIS
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'] // ✅ ADD THIS
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
 }));
 
-// ✅ Handle preflight requests globally
-app.options('*', cors()); // ✅ ADD THIS LINE
-
+app.options('*', cors());
 app.use(express.json());
-console.log(process.env.MONGODB_URI,"urii" || "mongodb://127.0.0.1:27017/internshipDB");
 
 // ✅ MongoDB connection
 mongoose.connect(process.env.MONGODB_URI, {
@@ -51,9 +48,18 @@ app.use("/partialRD", PartialRDRouter);
 app.use("/RegisterIntern", InternshipRouter);
 app.use("/PartialIntern", PartialInternRouter);
 
-// ✅ Health check route
+// ✅ HEALTH CHECK ROUTE
 app.get("/", (req, res) => {
   res.json({ message: "R&D Backend API is running!" });
+});
+
+// ✅ ADD PING ENDPOINT HERE (for keeping Render instance awake)
+app.get('/ping', (req, res) => {
+  res.json({ 
+    status: 'OK', 
+    timestamp: new Date().toISOString(),
+    message: 'Backend is awake and running'
+  });
 });
 
 const PORT = process.env.PORT || 5000;
