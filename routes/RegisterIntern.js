@@ -56,12 +56,12 @@ router.post("/registration", upload.single("resume"), async (req, res) => {
       });
     }
 
-    if (!req.file) {
-      return res.status(400).json({ 
-        success: false, 
-        message: "Resume file is required" 
-      });
-    }
+    // if (!req.file) {
+    //   return res.status(400).json({ 
+    //     success: false, 
+    //     message: "Resume file is required" 
+    //   });
+    // }
 
     // ✅ Ensure rollNumber has a value to prevent null
     const rollNumber = req.body.rollNumber && req.body.rollNumber.trim() !== "" 
