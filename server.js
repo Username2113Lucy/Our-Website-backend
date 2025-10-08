@@ -2,10 +2,9 @@ import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import InternEntriesRouter from "./routes/InternEntries.js";
-import RDProjectsRouter from "./routes/RDprojects.js"; // new router
+import RDProjectsRouter from "./routes/RDprojects.js";
 import courseRoutes from "./routes/CourseReg.js";
 import PartialRDRouter from "./routes/PartialRD.js";
-// Import the internship routes at the top with your other imports
 import InternshipRouter from "./routes/RegisterIntern.js";
 import PartialInternRouter from "./routes/PartialIntern.js";
 import dotenv from "dotenv";
@@ -13,23 +12,29 @@ dotenv.config();
 
 const app = express();
 
-// ✅ UPDATED CORS CONFIGURATION
+// ✅ CORRECTED CORS CONFIGURATION
 app.use(cors({
   origin: [
-    process.env.FRONTEND_URL,
-    process.env.ADMIN_URL,
-    "http://localhost:5173",
-    "http://localhost:5174",
-    "http://localhost:3000",
-    "https://your-frontend.vercel.app"  // Your future frontend URL
-  ],
-  credentials: true
+    'https://www.vetriantechnologysolutions.in',
+    'https://vetriantechnologysolutions.in',
+    'http://localhost:5173',
+    'http://localhost:5174', 
+    'http://localhost:3000',
+    process.env.FRONTEND_URL, // Keep this if you have it in env
+    process.env.ADMIN_URL,    // Keep this if you have it in env
+  ].filter(Boolean), // Removes any undefined values
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // ✅ ADD THIS
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'] // ✅ ADD THIS
 }));
+
+// ✅ Handle preflight requests globally
+app.options('*', cors()); // ✅ ADD THIS LINE
 
 app.use(express.json());
 console.log(process.env.MONGODB_URI,"urii" || "mongodb://127.0.0.1:27017/internshipDB");
 
-// ✅ UPDATED MongoDB connection (using environment variable)
+// ✅ MongoDB connection
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -40,18 +45,16 @@ mongoose.connect(process.env.MONGODB_URI, {
 
 // Use routers
 app.use("/InternEntries", InternEntriesRouter);
-app.use("/RDprojects", RDProjectsRouter); // mount at /RD_projects
+app.use("/RDprojects", RDProjectsRouter);
 app.use("/Courses", courseRoutes);
-app.use("/partialRD", PartialRDRouter); // Now /RDprojects/partial-save works
-// ADD THESE NEW ROUTES FOR INTERNSHIP:
-app.use("/RegisterIntern", InternshipRouter); // Main internship database routes
-app.use("/PartialIntern", PartialInternRouter); // Partial internship database routes
+app.use("/partialRD", PartialRDRouter);
+app.use("/RegisterIntern", InternshipRouter);
+app.use("/PartialIntern", PartialInternRouter);
 
-// ✅ ADD health check route
+// ✅ Health check route
 app.get("/", (req, res) => {
   res.json({ message: "R&D Backend API is running!" });
 });
 
-// ✅ UPDATED Server port (using environment variable)
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
