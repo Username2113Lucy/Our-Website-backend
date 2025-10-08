@@ -12,7 +12,7 @@ dotenv.config();
 
 const app = express();
 
-// ✅ CORRECTED CORS CONFIGURATION
+// ✅ SIMPLE CORS THAT ALWAYS WORKS
 app.use(cors({
   origin: [
     'https://www.vetriantechnologysolutions.in',
@@ -20,21 +20,11 @@ app.use(cors({
     'http://localhost:5173',
     'http://localhost:5174', 
     'http://localhost:3000',
-    process.env.FRONTEND_URL,
-    process.env.ADMIN_URL,
-  ].filter(Boolean),
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
+  ],
+  credentials: true
 }));
 
-// ✅ FIXED: Preflight handler (replace the problematic line)
-app.options('*', (req, res) => {
-  res.header('Access-Control-Allow-Origin', req.headers.origin || '*');
-  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
-  res.status(200).end();
-});
+// ❌ REMOVE THIS LINE COMPLETELY: app.options('*', cors());
 
 app.use(express.json());
 
@@ -60,7 +50,7 @@ app.get("/", (req, res) => {
   res.json({ message: "R&D Backend API is running!" });
 });
 
-// ✅ ADD PING ENDPOINT HERE (for keeping Render instance awake)
+// ✅ PING ENDPOINT
 app.get('/ping', (req, res) => {
   res.json({ 
     status: 'OK', 
