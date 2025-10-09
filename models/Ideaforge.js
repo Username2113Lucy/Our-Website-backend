@@ -136,9 +136,23 @@ ideaForgeSchema.index({ phone: 1 }, { unique: true });
 ideaForgeSchema.index({ generatedReferralCode: 1 }, { unique: true, sparse: true });
 
 // Pre-save middleware to generate referral code
-ideaForgeSchema.pre('save', function(next) {
-  if (this.isNew) {
-    this.generatedReferralCode = generateReferralCode.call(this.constructor);
+ideaForgeSchema.pre('save', async function(next) {
+  if (this.isNew && !this.generatedReferralCode) {
+    let isUnique = false;
+    let attempts = 0;
+    
+    while (!isUnique && attempts < 5) {
+      this.generatedReferralCode = generateReferralCode();
+      const existing = await this.constructor.findOne({ 
+        generatedReferralCode: this.generatedReferralCode 
+      });
+      if (!existing) isUnique = true;
+      attempts++;
+    }
+    
+    if (!isUnique) {
+      return next(new Error('Failed to generate unique referral code'));
+    }
   }
   next();
 });

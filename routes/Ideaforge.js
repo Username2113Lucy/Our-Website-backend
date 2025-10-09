@@ -5,8 +5,15 @@ import IdeaForge from '../models/Ideaforge.js';
 
 // Add this helper function at the top of your routes file
 function parseDDMMYYYY(dateString) {
-  const [day, month, year] = dateString.split('/');
-  return new Date(`${year}-${month}-${day}`);
+  try {
+    const [day, month, year] = dateString.split('/');
+    if (!day || !month || !year) throw new Error('Invalid date format');
+    const date = new Date(`${year}-${month}-${day}`);
+    if (isNaN(date.getTime())) throw new Error('Invalid date');
+    return date;
+  } catch (error) {
+    throw new Error(`Invalid date format: ${dateString}. Use DD/MM/YYYY`);
+  }
 }
 
 // Register new idea forge participant
