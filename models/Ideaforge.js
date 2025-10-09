@@ -47,14 +47,12 @@ const ideaForgeSchema = new mongoose.Schema({
     required: [true, 'Domain is required'],
     enum: [
     'Web Development',
-    'Mobile App Development',
     'Artificial Intelligence & Machine Learning', // ADD THIS
     'Data Science',
     'IoT',
     'Cybersecurity',
     'Blockchain',
     'Cloud Computing',
-    'UI/UX Design',
     'Other'
     ]
   },
