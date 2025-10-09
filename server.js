@@ -7,12 +7,13 @@ import courseRoutes from "./routes/CourseReg.js";
 import PartialRDRouter from "./routes/PartialRD.js";
 import InternshipRouter from "./routes/RegisterIntern.js";
 import PartialInternRouter from "./routes/PartialIntern.js";
+import IdeaForgeRouter from "./routes/ideaforge.js"; // ✅ FIXED THIS LINE
 import dotenv from "dotenv";
 dotenv.config(); 
 
 const app = express();
 
-// ✅ SIMPLE CORS THAT ALWAYS WORKS
+// ✅ CORS
 app.use(cors({
   origin: [
     'https://www.vetriantechnologysolutions.in',
@@ -23,8 +24,6 @@ app.use(cors({
   ],
   credentials: true
 }));
-
-// ❌ REMOVE THIS LINE COMPLETELY: app.options('*', cors());
 
 app.use(express.json());
 
@@ -44,6 +43,7 @@ app.use("/Courses", courseRoutes);
 app.use("/partialRD", PartialRDRouter);
 app.use("/RegisterIntern", InternshipRouter);
 app.use("/PartialIntern", PartialInternRouter);
+app.use("/Ideaforge", IdeaForgeRouter); // This creates /Ideaforge/register endpoint
 
 // ✅ HEALTH CHECK ROUTE
 app.get("/", (req, res) => {
