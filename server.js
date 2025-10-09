@@ -7,7 +7,7 @@ import courseRoutes from "./routes/CourseReg.js";
 import PartialRDRouter from "./routes/PartialRD.js";
 import InternshipRouter from "./routes/RegisterIntern.js";
 import PartialInternRouter from "./routes/PartialIntern.js";
-import IdeaForgeRouter from "./routes/ideaforge.js"; // ✅ FIXED THIS LINE
+import IdeaForgeRouter from "./routes/Ideaforge.js"
 import dotenv from "dotenv";
 dotenv.config(); 
 
