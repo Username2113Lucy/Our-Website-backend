@@ -30,6 +30,7 @@ app.use(cors({
     'https://www.vetriantechnologysolutions.in',
     'https://vetriantechnologysolutions.in',
     'https://our-website-admin.vercel.app',
+    'https://admin.vetriantechnologysolutions.in',
     'http://localhost:5173',
     'http://localhost:5174', 
     'http://localhost:3000',
