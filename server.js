@@ -9,6 +9,7 @@ import InternshipRouter from "./routes/RegisterIntern.js";
 import PartialInternRouter from "./routes/PartialIntern.js";
 import IdeaForgeRouter from "./routes/Ideaforge.js"
 import RegisterCareerRouter from "./routes/RegisterCareer.js";
+import BillingRouter from "./routes/Billing.js";
 import dotenv from "dotenv";
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -32,7 +33,6 @@ app.use(cors({
     'https://our-website-admin.vercel.app',
     'https://admin.vetriantechnologysolutions.in',
     'http://localhost:5173',
-    'http://localhost:5174', 
     'http://localhost:3000',
   ],
   credentials: true
@@ -58,6 +58,7 @@ app.use("/partialRD", PartialRDRouter);
 app.use("/RegisterIntern", InternshipRouter);
 app.use("/PartialIntern", PartialInternRouter);
 app.use("/Ideaforge", IdeaForgeRouter);
+app.use("/Billing", BillingRouter)
 
 // ✅ NEW: Add Course Routes
 app.use("/RegisterCourse", RegisterCourseRouter);
