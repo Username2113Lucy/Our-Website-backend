@@ -10,6 +10,7 @@ import PartialInternRouter from "./routes/PartialIntern.js";
 import IdeaForgeRouter from "./routes/Ideaforge.js"
 import RegisterCareerRouter from "./routes/RegisterCareer.js";
 import BillingRouter from "./routes/Billing.js";
+import demoRequestRoutes from "./routes/Demo_Request.js";
 import dotenv from "dotenv";
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -59,6 +60,8 @@ app.use("/RegisterIntern", InternshipRouter);
 app.use("/PartialIntern", PartialInternRouter);
 app.use("/Ideaforge", IdeaForgeRouter);
 app.use("/Billing", BillingRouter)
+app.use("/Demo", demoRequestRoutes);
+
 
 // ✅ NEW: Add Course Routes
 app.use("/RegisterCourse", RegisterCourseRouter);
