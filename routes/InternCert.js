@@ -264,7 +264,8 @@ router.post('/', async (req, res) => {
     
     const savedInternCert = await internCert.save();
 
-    const verifyUrl = `https://www.vetriantechnologysolutions.in/verify-intern/${savedInternCert.internCertId}`;
+// In the POST route, change the verifyUrl to use the certificate ID directly:
+const verifyUrl = `https://vetriantechnologysolutions.in/internship/${savedInternCert.internCertId}`;
     const qrCode = await QRCode.toDataURL(verifyUrl);
     savedInternCert.qrCodeData = qrCode;
     await savedInternCert.save();
