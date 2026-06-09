@@ -131,6 +131,8 @@ router.get('/demo', async (req, res) => {
     // Create sample/demo data for testing alignment
     const demoCert = {
       studentName: 'Vishwa R Y',
+      collegeName: 'Demo College',           // ✅ ADD THIS
+      department: 'Computer Science', 
       domain: 'Full Stack Development ',
       fromDate: new Date('2024-01-01'),
       toDate: new Date('2024-03-31'),
@@ -188,6 +190,8 @@ router.get('/verify/:certificateId', (req, res, next) => {
         _id: internCert._id,
         internCertId: internCert.internCertId,
         studentName: internCert.studentName,
+        collegeName: internCert.collegeName,     // ✅ ADD THIS
+        department: internCert.department,       // ✅ ADD THIS
         domain: internCert.domain,
         fromDate: internCert.fromDate,
         toDate: internCert.toDate,

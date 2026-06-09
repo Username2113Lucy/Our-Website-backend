@@ -10,6 +10,14 @@ const internCertSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  collegeName: {
+    type: String,
+    required: true
+  },
+  department: {           // ✅ ADD THIS FIELD
+    type: String,
+    required: true
+  },
   domain: {
     type: String,
     required: true
@@ -24,7 +32,8 @@ const internCertSchema = new mongoose.Schema({
   },
   internshipMode: {
     type: String,
-    default: 'Project Based Internship'
+    enum: ['Online', 'Offline'],
+    default: 'Online'
   },
   duration: {
     type: String
