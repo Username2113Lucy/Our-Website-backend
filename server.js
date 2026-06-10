@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import InternEntriesRouter from "./routes/InternEntries.js";
+import InternshipRegistrationRouter from './routes/InternshipRegistration.js';
 import RDProjectsRouter from "./routes/RDprojects.js";
 import courseRoutes from "./routes/CourseReg.js";
 import PartialRDRouter from "./routes/PartialRD.js";
@@ -64,6 +65,7 @@ app.use("/Ideaforge", IdeaForgeRouter);
 app.use("/Billing", BillingRouter);
 app.use("/InternCert", InternCert);
 app.use("/Demo", demoRequestRoutes);
+app.use('/internship', InternshipRegistrationRouter);
 
 
 // ✅ NEW: Add Course Routes
