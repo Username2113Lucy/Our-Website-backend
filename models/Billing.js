@@ -36,10 +36,10 @@ const billingSchema = new mongoose.Schema({
       type: String,
       required: true
     },
-    quantity: {
-      type: Number,
-      default: 1
-    },
+  domainOrProject: {    // ✅ ADD THIS FIELD
+    type: String,
+    default: ''
+  },
     amount: {
       type: Number,
       required: true
